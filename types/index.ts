@@ -35,6 +35,7 @@ export interface SearchParamsProps {
     children?: string | null;
     rooms?: string;
     location?: string;
+    page: number;
     pageNumnber?: number;
     limit?: number;
     params?: string;
