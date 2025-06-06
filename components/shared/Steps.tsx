@@ -25,7 +25,7 @@ const Steps = () => {
                         </div>
                     </div>
                     <div className="flex items-start justify-start max-w-full">
-                        <Image src="/assets/images/payment.png" alt="payment" width={44} height={44} />
+                        <Image src="/assets/icons/payment.svg" alt="payment" width={44} height={44} />
                         <div className="ml-2">
                             <h4 className="p-bold-16">Make Payment</h4>
                             <p className="p-regular-14">Our flexible plan make payment easy as you can either using one card or split payment, or buy now pay later method at checkout to pay in interest-free installments.</p>
@@ -41,9 +41,9 @@ const Steps = () => {
                 </div>
             </div>
 
-            <div className="relative flex-center w-[400px] h-full hidden lg:block !hidden lg:!block shadow-2xl rounded-lg">
+            <div className="relative flex-center w-[400px] h-full !hidden lg:!block shadow-2xl rounded-lg">
                 <div className="w-full p-10 bg-coral-500 bg-opacity-50 rounded-lg">
-                    <Image src="/assets/images/iconic.jpeg" alt="iconic" width={350} height={250}
+                    <Image src="/assets/images/iconic.png" alt="iconic" width={350} height={250}
                         className="rounded-lg" />
                 </div>
 
