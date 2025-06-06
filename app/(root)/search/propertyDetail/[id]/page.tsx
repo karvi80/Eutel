@@ -84,6 +84,7 @@ const PropertyDetails = ({ params }: ParamsProps) => {
                     checkin: searchParams.checkin,
                     checkout: searchParams.checkout,
                     adults: searchParams.adults,
+                    page: 1, // or set to a value appropriate for your use case
                 });
                 setAvailableRooms(rooms);
                 console.log(rooms)
