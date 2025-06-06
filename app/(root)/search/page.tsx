@@ -1,6 +1,7 @@
 
 
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import PropertyCard from "@/components/shared/PropertyCard";
 import { fetchHotelData } from "@/lib/fetchResults";
 import { PropertyProps, SearchParamsProps } from "@/types";
@@ -49,10 +50,14 @@ const generatePageNumbers = (
 
 async function SearchResultsPage({ searchParams }: Props) {
 
+    // Lazy load PropertyCard
+    const LazyPropertyCard = dynamic(() => import("@/components/shared/PropertyCard"), { ssr: false });
 
     const properties = await fetchHotelData(searchParams);
 
     const { regionId, checkin, checkout, adults, children, page } = searchParams
+
+   
 
     let numNights = 0
 
@@ -85,7 +90,7 @@ async function SearchResultsPage({ searchParams }: Props) {
         );
     }
 
-    const validCurrentPage = Math.min(Math.max(1, currentPage), totalPages);
+    const validCurrentPage = Math.min(Math.max(1, currentPage), totalPages || 1);
     const pages = generatePageNumbers(validCurrentPage, totalPages);
 
 
@@ -112,7 +117,7 @@ async function SearchResultsPage({ searchParams }: Props) {
                                         }
                                     }}
                                 >
-                                    <PropertyCard
+                                    <LazyPropertyCard
                                         imageUrl={property?.propertyImage?.image?.url}
                                         name={property.name}
                                         distance={property?.destinationInfo?.distanceFromDestination?.value}
@@ -134,34 +139,37 @@ async function SearchResultsPage({ searchParams }: Props) {
 
                     {/* Pagination controls */}
                     <div className="flex justify-center mt-6">
-                        {pages.map((page, index) => (
-                            typeof page === "string" ? (
+                        {pages.map((pageNumber, index) => (
+                            typeof pageNumber === "string" ? (
                                 <span key={index} className="mx-1 px-3 py-1 text-gray-500">
-                                    {page}
+                                    {pageNumber}
                                 </span>
                             ) : (
                                 <Link key={index}
                                     href={{
                                         pathname: "/search",
-                                        query: Object.fromEntries(
-                                            Object.entries(searchParams).filter(([key, value]) =>
-                                                typeof value === "string" ||
-                                                typeof value === "number" ||
-                                                typeof value === "boolean" ||
-                                                value === null ||
-                                                value === undefined
-                                            )
-                                        ),
+                                        query: {
+                                            ...Object.fromEntries(
+                                                Object.entries(searchParams).filter(([key, value]) =>
+                                                    typeof value === "string" ||
+                                                    typeof value === "number" ||
+                                                    typeof value === "boolean" ||
+                                                    value === null ||
+                                                    value === undefined
+                                                )
+                                            ),
+                                            page: pageNumber.toString()
+                                        }
                                     }}
                                 >
-                                    <Button 
-                                    aria-current={validCurrentPage === page ? "page" : undefined}
-                                    variant="ghost" 
-                                    className={`mx-1 border ${validCurrentPage === page
-                                        ? "bg-coral-500 text-white hover:text-coral-500 bg-coral-500"
-                                        : "bg-white text-coral-500"
-                                        } rounded-full border-coral-500`}>
-                                        {page}
+                                    <Button
+                                        aria-current={validCurrentPage === pageNumber ? "page" : undefined}
+                                        variant="ghost"
+                                        className={`mx-1 border ${validCurrentPage === pageNumber
+                                            ? "bg-coral-500 text-white hover:text-coral-500"
+                                            : "bg-white text-coral-500"
+                                            } rounded-full border-coral-500`}>
+                                        {pageNumber}
                                     </Button>
                                 </Link>
                             )

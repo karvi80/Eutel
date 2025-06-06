@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 import { Button } from '../ui/button'
 import {
@@ -13,10 +14,10 @@ const Navbar = () => {
     return (
         <nav className="w-full p-10 bg-accent">
             <div className="hidden lg:flex w-full items-center justify-between">
-                <div className="flex items-center ">
+                <Link href="/" className="flex items-center cursor-pointer">
                     <Image src="/assets/images/logo.png" alt="logo" width={80} height={80} />
                     <h1 className="text-[45px] font-extrabold text-primary-500">utel</h1>
-                </div>
+                </Link>
 
                 <div className="hidden lg:block">
                     {navbatItems.map((navbarItem) => (

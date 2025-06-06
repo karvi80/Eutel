@@ -22,7 +22,7 @@ const ProperrtyCard = ({ imageUrl, name, distance, unit, neighborhood, score, re
 
         >
             <div className="w-[100px] h-[100px] sm:w-[200px] sm:h-[200px] overflow-hidden rounded-lg">
-                <Image src={imageUrl} alt="hotel image" width={200} height={200}
+                <Image src={imageUrl} alt="hotel image" width={200} height={200} priority
                     className="object-cover object-center w-full h-full sm:w-200 sm:h-200 md:w-150 md:h-150 lg:w-100 lg:h-100"
 
                 />

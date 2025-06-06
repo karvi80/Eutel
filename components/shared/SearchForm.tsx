@@ -195,7 +195,7 @@ const SearchForm = () => {
                                         <PopoverTrigger asChild>
                                             <FormControl>
                                                 <Button
-                                                    id="date"
+                                                    id="dates"
                                                     name="dates"
                                                     variant={"outline"}
                                                     className={cn(
